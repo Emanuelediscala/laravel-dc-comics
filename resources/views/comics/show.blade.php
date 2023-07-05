@@ -6,8 +6,13 @@
     <h1>Dettagli: {{$comic->title}}</h1>
     <div class="row g-4">
         <div class="col">
-            <a class="btn btn-primary" href="{{ route("comics.edit", $comic) }}">Modifica questo prodotto</a>
-            <a href="{{ route("comics.index") }}">Torna alla lista prodotti</a>
+            <a class="btn btn-primary" href="{{ route("comics.edit", $comic) }}">Modifica questo fumetto</a>
+            <form action="{{ route('comics.destroy', $comic) }}" method="post">
+                @csrf
+                @method('DELETE')
+                <input class="btn btn-danger" type="submit" value="Cancella il fumetto">
+            </form>
+            <a href="{{ route("comics.index")}}">Torna alla lista dei fumetti</a>
         </div>
     </div>
 
