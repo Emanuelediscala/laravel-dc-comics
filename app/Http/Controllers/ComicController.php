@@ -26,7 +26,8 @@ class ComicController extends Controller
      */
 
     public function create()
-    {
+    {   
+        
         return view("comics.create");
     }
 
@@ -91,7 +92,6 @@ class ComicController extends Controller
     {
         $data = $request->all();
 
-        
         $comic->title = $data["title"];
         $comic->description = $data["description"];
         $comic->thumb = $data["thumb"];

@@ -5,6 +5,9 @@
     <h1>Edit comic</h1>
     <div class="row g-4 py-4">
         <div class="col">
+            @php
+                $typeOfComics = config("comics");
+            @endphp
             <form action="{{ route('comics.update', $comic->id) }}" method="post">
                 @csrf
                 
@@ -14,7 +17,7 @@
                 <input class="form-control" type="text" name="title" value="{{$comic->title}}">
 
                 <label for="name">description</label>
-                <input class="form-control" type="text" name="description" value="{{$comic->description}}">
+                <textarea name="description" class="form-control" cols="30" rows="5">{{$comic->description}}</textarea>
 
                 <label for="name">thumb</label>
                 <input class="form-control" type="text" name="thumb" value="{{$comic->thumb}}">
@@ -29,10 +32,13 @@
 
                 <label for="name">sale date</label>
                 <input class="form-control" type="date" name="sale_date" value="{{$comic->sale_date}}">
-
+                
                 <label for="name">type</label>
-                <input class="form-control" type="text" name="type" value="{{$comic->type}}">
-
+                <select class="form-control" name="type">
+                    @foreach ($typeOfComics as $ComicType)
+                    <option value="{{$ComicType["type"]}}" @selected($comic["type"]==$ComicType["type"]) >{{$ComicType["type"]}}</option>
+                    @endforeach
+                </select> 
                 <input class="form-control mt-4 btn btn-primary" type="submit" value="Invia">
              </form>
         </div>
