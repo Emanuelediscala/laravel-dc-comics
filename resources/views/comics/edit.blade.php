@@ -14,21 +14,28 @@
                 @method ("PUT")
 
                 <label for="name">title</label>
-                <input class="form-control" type="text" name="title" value="{{$comic->title}}">
+                <input class="form-control @error('title') is-invalid @enderror" type="text" name="title" value="{{$comic->title}}">
+                @error("title")
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
 
                 <label for="name">description</label>
                 <textarea name="description" class="form-control" cols="30" rows="5">{{$comic->description}}</textarea>
+                @error("description")
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
 
                 <label for="name">thumb</label>
-                <input class="form-control" type="text" name="thumb" value="{{$comic->thumb}}">
+                <input class="form-control @error('title') is-invalid @enderror" type="text" name="thumb" value="{{$comic->thumb}}">
+                @error("title")
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
                 
                 <label for="name">prices</label>
                 <input class="form-control" type="text" name="price" value="{{$comic->price}}">
 
-
                 <label for="name">series</label>
                 <input class="form-control" type="text" name="series" value="{{$comic->series}}">
-
 
                 <label for="name">sale date</label>
                 <input class="form-control" type="date" name="sale_date" value="{{$comic->sale_date}}">
