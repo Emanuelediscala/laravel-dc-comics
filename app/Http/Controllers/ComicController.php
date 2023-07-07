@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\StoreComicRequest;
 use App\Models\Comic;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+ 
 
 class ComicController extends Controller
 {
@@ -32,25 +32,7 @@ class ComicController extends Controller
         return view("comics.create");
     }
 
-    private function validateComic($data) {
-        
-        $validator = Validator::make($data, [
-
-                "title" => "required|min:5|max:50",
-                "description" => "min:5|max:65535",
-                "type" => "required|max:20",
-                "price" => "required|max:255",
-                "series" => "max:20",
-                "sales_date" => "max:20",
-            ], [
-                "title.required" => "Il titolo è obbligatorio",
-                "title.min" => "Il titolo deve essere almeno di :min caratteri"
-            ])->validate();
-
-            return $validator;
-    }
-
-
+    
 
     /**
      * Store a newly created resource in storage.
@@ -58,12 +40,9 @@ class ComicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreComicRequest $request)
     {
-        
-      
-        $data = $this->validateComic( $request->all() );
-        
+        $data = $request->validated();
         
         $newComic = new Comic();
         if (!$newComic->thumb) {
@@ -115,19 +94,20 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comic $comic)
+    public function update(StoreComicRequest $request, Comic $comic)
     {
-        $data = $this->validateComic( $request->all() );
+        $data = $request->validated();
+        $comic->fill($data);
 
-        $comic->title = $data["title"];
-        $comic->description = $data["description"];
-        $comic->thumb = $data["thumb"];
-        $comic->price = $data["price"];
-        $comic->series = $data["series"];
-        $comic->sale_date = $data["sale_date"];
-        $comic->type = $data["type"];
-        $comic->artists = "";
-        $comic->writers = "";
+        // $comic->title = $data["title"];
+        // $comic->description = $data["description"];
+        // $comic->thumb = $data["thumb"];
+        // $comic->price = $data["price"];
+        // $comic->series = $data["series"];
+        // $comic->sale_date = $data["sale_date"];
+        // $comic->type = $data["type"];
+        // $comic->artists = "";
+        // $comic->writers = "";
         $comic->update();
 
         return redirect()->route('comics.show', $comic->id);
