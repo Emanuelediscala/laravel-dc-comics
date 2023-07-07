@@ -11,8 +11,7 @@
             <form action="{{ route('comics.update', $comic->id) }}" method="post">
                 @csrf
                 
-                @method ("PUT")
-
+                 @method ("PUT")
                 <label for="name">title</label>
                 <input class="form-control @error('title') is-invalid @enderror" type="text" name="title" value="{{$comic->title}}">
                 @error("title")
@@ -47,7 +46,7 @@
                     @endforeach
                 </select> 
                 <input class="form-control mt-4 btn btn-primary" type="submit" value="Invia">
-             </form>
+            </form>
         </div>
     </div>
 
